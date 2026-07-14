@@ -95,3 +95,14 @@ URL de ejemplo — reemplázala por el dominio final una vez decidido:
 - Exportar la tabla a CSV/Excel.
 - Guardar escenarios (localStorage) para comparar más de una simulación.
 - Modo oscuro.
+
+## Screenshots de la aplicación
+![compound-interest-calculator-1](public/images/compound-interest-calculator-1.webp)
+![compound-interest-calculator-2](public/images/compound-interest-calculator-2.webp)
+
+<img src="public/images/compound-interest-calculator-3.webp" alt="sticker-tracker-6" width="45%"> &nbsp;&nbsp;
+<img src="public/images/compound-interest-calculator-4.webp" alt="sticker-tracker-7" width="45%">
+
+## Revisión de documento
+- _Versión: 1.0_
+- _Autor: Jimmy Salazar_
