@@ -9,7 +9,7 @@
       <span class="field__label">Capital inicial</span>
       <div class="field__control">
         <span class="field__prefix">{{ currencySymbol() }}</span>
-        <input class="mono" type="number" min="0" step="100" formControlName="initialAmount" />
+        <input class="mono" type="number" min="0" max="1000000000" step="100" formControlName="initialAmount" />
       </div>
     </label>
 
@@ -17,7 +17,7 @@
       <span class="field__label">Aporte periódico</span>
       <div class="field__control">
         <span class="field__prefix">{{ currencySymbol() }}</span>
-        <input class="mono" type="number" min="0" step="10" formControlName="contributionAmount" />
+        <input class="mono" type="number" min="0" max="100000000" step="10" formControlName="contributionAmount" />
       </div>
     </label>
 
@@ -72,6 +72,9 @@
   </div>
 
   @if (form.invalid) {
-    <p class="form__hint">Revisa los valores marcados: deben ser números válidos dentro del rango permitido.</p>
-  }
+  <p class="form__hint">
+    Revisa los valores marcados: el capital inicial admite hasta 1.000.000.000, el aporte periódico hasta
+    100.000.000, la tasa entre 0 y 100%, y el horizonte entre 1 y 60 años.
+  </p>
+}
 </form>
