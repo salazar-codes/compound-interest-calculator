@@ -1,0 +1,193 @@
+.table-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 24px 24px 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 640px) {
+    padding: 18px 16px 8px;
+  }
+}
+
+.table-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.table-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.table-card__caption {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+  margin: 0 0 16px;
+
+  strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+}
+
+.toggle {
+  display: flex;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+.toggle__option {
+  border: none;
+  background: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &--active {
+    background: var(--color-ink);
+    color: var(--color-surface);
+  }
+}
+
+.table-card__scroll {
+  overflow-y: auto;
+  max-height: 360px;
+
+  @media (max-width: 640px) {
+    overflow-x: visible;
+    max-height: none;
+  }
+}
+
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    text-align: right;
+    padding: 10px 8px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  th:first-child,
+  td:first-child {
+    text-align: left;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--color-surface);
+    color: var(--color-ink-muted);
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--color-line);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: var(--color-bg);
+    }
+  }
+
+  // Below 640px a wide ledger table becomes unreadable — either squeezed
+  // columns or a sideways scroll most people never discover on a phone.
+  // Each row turns into its own small card instead: no horizontal motion,
+  // labels stay attached to their value, and it reads top-to-bottom like
+  // any other mobile list.
+  @media (max-width: 640px) {
+    display: block;
+    width: 100%;
+    min-width: 0;
+
+    thead {
+      display: none;
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    tr {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-sm);
+      border-bottom: 1px solid var(--color-line) !important;
+    }
+
+    td {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      white-space: normal;
+      padding: 0;
+      font-size: 0.88rem;
+    }
+
+    td::before {
+      content: attr(data-label);
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--color-ink-muted);
+      margin-bottom: 2px;
+    }
+
+    // Period (Mes/Año) and Saldo are the two numbers worth scanning first,
+    // so they get the full top row instead of sharing space with the rest.
+    td:first-child,
+    td:last-child {
+      grid-column: 1 / -1;
+    }
+
+    td:first-child {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.ledger__interest {
+  color: var(--color-accent);
+}
+
+.ledger__balance {
+  font-weight: 600;
+}
+
+.ledger__row--start {
+  color: var(--color-ink-muted);
+  font-style: italic;
+}

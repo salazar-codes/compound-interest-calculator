@@ -1,0 +1,92 @@
+// Angular custom elements default to display:inline, which behaves oddly as
+// a flex/grid child. Being explicit here — and setting min-width: 0 — stops
+// the wide, horizontally-scrolling chart inside from ever pushing past the
+// page's width (a classic flex/grid "min-width: auto" overflow bug).
+:host {
+  display: block;
+  min-width: 0;
+  width: 100%;
+}
+
+.chart-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 24px 24px 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 640px) {
+    padding: 18px 16px 12px;
+  }
+}
+
+.chart-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.chart-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.chart-card__hint {
+  display: none;
+  font-size: 0.72rem;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+  margin-bottom: 8px;
+
+  @media (max-width: 640px) {
+    display: inline;
+  }
+}
+
+.toggle {
+  display: flex;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+.toggle__option {
+  border: none;
+  background: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &--active {
+    background: var(--color-ink);
+    color: var(--color-surface);
+  }
+}
+
+.chart-card__scroll {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+}
+
+.chart-card__canvas-wrap {
+  position: relative;
+  height: 100%;
+  min-height: 280px;
+
+  @media (max-width: 640px) {
+    min-height: 260px;
+  }
+}

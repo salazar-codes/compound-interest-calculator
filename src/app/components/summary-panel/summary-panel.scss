@@ -1,0 +1,130 @@
+.summary {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+
+  @media (max-width: 640px) {
+    padding: 20px;
+    gap: 20px;
+  }
+}
+
+.summary__headline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 220px;
+}
+
+.summary__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary__amount {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+
+.summary__caption {
+  font-size: 0.85rem;
+  color: var(--color-ink-muted);
+}
+
+.summary__breakdown {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legend__item {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  &--navy {
+    background: var(--color-navy);
+  }
+  &--soft {
+    background: var(--color-accent-soft);
+    box-shadow: inset 0 0 0 1px var(--color-line);
+  }
+  &--accent {
+    background: var(--color-accent);
+  }
+}
+
+.legend__text {
+  color: var(--color-ink-muted);
+}
+
+.legend__value {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.donut {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.donut__hole {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.donut__pct {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.donut__pct-label {
+  font-size: 0.62rem;
+  color: var(--color-ink-muted);
+}

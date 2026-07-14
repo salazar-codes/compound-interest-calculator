@@ -1,0 +1,80 @@
+<section class="guide">
+  <h3 class="guide__title">¿Cómo funciona esta calculadora?</h3>
+  <p class="guide__intro">
+    Una guía rápida — qué significa cada campo de configuración y qué representa cada resultado, con tus propios
+    valores como ejemplo.
+  </p>
+
+  <div class="guide__grid">
+    <div class="guide__block">
+      <h4 class="guide__block-title">La configuración</h4>
+      <dl class="guide__list">
+        <div class="guide__item">
+          <dt>Capital inicial</dt>
+          <dd>Lo que ya tienes hoy para invertir, antes de cualquier aporte futuro.</dd>
+        </div>
+        <div class="guide__item">
+          <dt>Aporte periódico</dt>
+          <dd>Cuánto piensas ir agregando, y con qué frecuencia (cada mes o una vez al año).</dd>
+        </div>
+        <div class="guide__item">
+          <dt>Tasa de interés anual</dt>
+          <dd>Qué tan rápido crece tu dinero en un año, expresado en porcentaje.</dd>
+        </div>
+        <div class="guide__item">
+          <dt>Capitalización</dt>
+          <dd>Cada cuánto se "recalcula" ese crecimiento. Mientras más seguido capitaliza, un poco más rápido crece — para la misma tasa anual.</dd>
+        </div>
+        <div class="guide__item">
+          <dt>Horizonte</dt>
+          <dd>Cuántos años simula la calculadora hacia adelante.</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="guide__block">
+      <h4 class="guide__block-title">Tu ejemplo, con estos valores</h4>
+      <p class="guide__example">
+        Si empiezas con
+        <strong>{{ store.inputs().initialAmount | money: store.inputs().currency }}</strong>
+        y aportas
+        <strong>{{ store.inputs().contributionAmount | money: store.inputs().currency }}</strong>
+        {{ contributionFrequencyPhrase() }}, a una tasa de
+        <strong>{{ store.inputs().annualRate }}%</strong>
+        anual con capitalización {{ compoundingLabel().toLowerCase() }}, en
+        <strong>{{ store.inputs().years }}</strong>
+        {{ store.inputs().years === 1 ? 'año' : 'años' }} tendrías aproximadamente:
+      </p>
+
+      <dl class="guide__list">
+        <div class="guide__item">
+          <dt>Saldo final estimado</dt>
+          <dd>
+            <strong class="mono">{{ store.summary().finalBalance | money: store.inputs().currency : 2 }}</strong>
+            — todo tu dinero junto al final: lo que pusiste más lo que ganó.
+          </dd>
+        </div>
+        <div class="guide__item">
+          <dt>Capital inicial + Aportes</dt>
+          <dd>
+            <strong class="mono">{{ (store.summary().initialAmount + store.summary().totalContributed) | money: store.inputs().currency }}</strong>
+            — la parte que sale de tu bolsillo, sin contar ninguna ganancia.
+          </dd>
+        </div>
+        <div class="guide__item">
+          <dt>Interés generado</dt>
+          <dd>
+            <strong class="mono">{{ store.summary().totalInterest | money: store.inputs().currency }}</strong>
+            — el {{ interestPercentOfBalance() }}% restante del saldo, generado por la inversión misma, no por ti.
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <p class="guide__footnote">
+    El interés generado no crece parejo: cada año se calcula también sobre el interés que ya ganaste antes —
+    ese es el "efecto bola de nieve" del interés compuesto. Cambia cualquier valor de arriba y esta explicación
+    se actualiza sola.
+  </p>
+</section>

@@ -1,0 +1,111 @@
+.form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 28px 32px 24px;
+
+  @media (max-width: 640px) {
+    padding: 20px 18px 18px;
+  }
+}
+
+.form__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+
+  h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+}
+
+.form__reset {
+  background: none;
+  border: none;
+  color: var(--color-ink-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+
+  &:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 24px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
+}
+
+.field__control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  padding: 0 12px;
+  background: var(--color-bg);
+  transition: border-color 0.15s ease;
+
+  &:focus-within {
+    border-color: var(--color-accent);
+  }
+
+  input,
+  select {
+    border: none;
+    background: none;
+    padding: 10px 0;
+    font-size: 0.95rem;
+    color: var(--color-ink);
+    width: 100%;
+    outline: none;
+  }
+
+  select {
+    font-family: var(--font-body);
+    cursor: pointer;
+  }
+}
+
+.field__prefix,
+.field__suffix {
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+
+.form__hint {
+  margin: 16px 2px 0;
+  font-size: 0.8rem;
+  color: var(--color-negative);
+}

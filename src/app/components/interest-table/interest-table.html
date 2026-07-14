@@ -1,0 +1,56 @@
+<div class="table-card">
+  <div class="table-card__header">
+    <h3 class="table-card__title">Detalle de la evolución</h3>
+    <div class="toggle">
+      <button
+        type="button"
+        class="toggle__option"
+        [class.toggle__option--active]="viewMode() === 'monthly'"
+        (click)="setViewMode('monthly')"
+      >
+        Mes a mes
+      </button>
+      <button
+        type="button"
+        class="toggle__option"
+        [class.toggle__option--active]="viewMode() === 'yearly'"
+        (click)="setViewMode('yearly')"
+      >
+        Por año
+      </button>
+    </div>
+  </div>
+
+  <div class="table-card__scroll">
+    <table class="ledger">
+      <thead>
+        <tr>
+          <th>{{ viewMode() === 'monthly' ? 'Mes' : 'Año' }}</th>
+          <th>Aporte</th>
+          <th>Total aportado</th>
+          <th title="Saldo del año menos el total aportado hasta ese momento">Interés acumulado</th>
+          <th>Saldo</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows(); track row.month) {
+          <tr [class.ledger__row--start]="viewMode() === 'yearly' && row.year === 0">
+            <td class="mono" [attr.data-label]="viewMode() === 'monthly' ? 'Mes' : 'Año'">
+              @if (viewMode() === 'monthly') {
+                {{ row.month }}
+              } @else if (row.year === 0) {
+                Inicio
+              } @else {
+                {{ row.year }}
+              }
+            </td>
+            <td class="mono" data-label="Aporte">{{ row.contribution | money: store.inputs().currency }}</td>
+            <td class="mono" data-label="Total aportado">{{ row.totalContributions | money: store.inputs().currency }}</td>
+            <td class="mono ledger__interest" data-label="Interés acumulado">{{ row.interestEarned | money: store.inputs().currency }}</td>
+            <td class="mono ledger__balance" data-label="Saldo">{{ row.balance | money: store.inputs().currency }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

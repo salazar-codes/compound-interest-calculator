@@ -1,0 +1,38 @@
+<section class="summary">
+  <div class="summary__headline">
+    <span class="summary__label">Saldo final estimado</span>
+    <strong class="summary__amount mono">{{ store.summary().finalBalance | money: store.inputs().currency : 2 }}</strong>
+    <span class="summary__caption">
+      en {{ store.inputs().years }} {{ store.inputs().years === 1 ? 'año' : 'años' }}
+    </span>
+  </div>
+
+  <div class="summary__breakdown">
+    <div class="legend">
+      <div class="legend__item">
+        <span class="legend__dot legend__dot--navy"></span>
+        <span class="legend__text">Capital inicial</span>
+        <span class="legend__value mono">{{ store.summary().initialAmount | money: store.inputs().currency }}</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__dot legend__dot--soft"></span>
+        <span class="legend__text">Aportes</span>
+        <span class="legend__value mono">{{ store.summary().totalContributed | money: store.inputs().currency }}</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__dot legend__dot--accent"></span>
+        <span class="legend__text">Interés generado</span>
+        <span class="legend__value mono">{{ store.summary().totalInterest | money: store.inputs().currency }}</span>
+      </div>
+    </div>
+
+    <div class="donut" [style]="donutStyle()">
+      <div class="donut__hole">
+        <span class="donut__pct mono">
+          {{ (store.summary().totalInterest / (store.summary().finalBalance || 1)) * 100 | number: '1.0-0' }}%
+        </span>
+        <span class="donut__pct-label">es interés</span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,63 @@
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (max-width: 640px) {
+    padding: 32px 16px 40px;
+    gap: 16px;
+  }
+}
+
+.page__header {
+  margin-bottom: 8px;
+}
+
+.page__eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+}
+
+.page__title {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.page__subtitle {
+  color: var(--color-ink-muted);
+  font-size: 1rem;
+  max-width: 560px;
+  margin: 0;
+}
+
+// The chart and the table now always stack — chart first, table below —
+// instead of sitting side by side. Better for reading top-to-bottom, and it
+// also sidesteps a classic grid/flex bug: a two-column track forces both
+// children to share limited width, and a child with wide internal content
+// (the horizontally-scrolling chart) can escape its column and stretch the
+// whole page. A single stacked column never has that fight to begin with.
+.page__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (max-width: 640px) {
+    gap: 16px;
+  }
+}
+
+.page__footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
+}

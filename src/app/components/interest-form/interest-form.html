@@ -1,0 +1,77 @@
+<form class="form" [formGroup]="form">
+  <div class="form__header">
+    <h2>Configura tu simulación</h2>
+    <button type="button" class="form__reset" (click)="onReset()">Restablecer</button>
+  </div>
+
+  <div class="form__grid">
+    <label class="field">
+      <span class="field__label">Capital inicial</span>
+      <div class="field__control">
+        <span class="field__prefix">{{ currencySymbol() }}</span>
+        <input class="mono" type="number" min="0" step="100" formControlName="initialAmount" />
+      </div>
+    </label>
+
+    <label class="field">
+      <span class="field__label">Aporte periódico</span>
+      <div class="field__control">
+        <span class="field__prefix">{{ currencySymbol() }}</span>
+        <input class="mono" type="number" min="0" step="10" formControlName="contributionAmount" />
+      </div>
+    </label>
+
+    <label class="field">
+      <span class="field__label">Frecuencia del aporte</span>
+      <div class="field__control">
+        <select formControlName="contributionFrequency">
+          @for (option of contributionOptions; track option[0]) {
+            <option [value]="option[0]">{{ option[1] }}</option>
+          }
+        </select>
+      </div>
+    </label>
+
+    <label class="field">
+      <span class="field__label">Tasa de interés anual</span>
+      <div class="field__control">
+        <input class="mono" type="number" min="0" max="100" step="0.1" formControlName="annualRate" />
+        <span class="field__suffix">%</span>
+      </div>
+    </label>
+
+    <label class="field">
+      <span class="field__label">Capitalización</span>
+      <div class="field__control">
+        <select formControlName="compoundingFrequency">
+          @for (option of compoundingOptions; track option[0]) {
+            <option [value]="option[0]">{{ option[1] }}</option>
+          }
+        </select>
+      </div>
+    </label>
+
+    <label class="field">
+      <span class="field__label">Horizonte</span>
+      <div class="field__control">
+        <input class="mono" type="number" min="1" max="60" step="1" formControlName="years" />
+        <span class="field__suffix">años</span>
+      </div>
+    </label>
+
+    <label class="field">
+      <span class="field__label">Moneda</span>
+      <div class="field__control">
+        <select formControlName="currency">
+          @for (option of currencyOptions; track option[0]) {
+            <option [value]="option[0]">{{ option[1] }}</option>
+          }
+        </select>
+      </div>
+    </label>
+  </div>
+
+  @if (form.invalid) {
+    <p class="form__hint">Revisa los valores marcados: deben ser números válidos dentro del rango permitido.</p>
+  }
+</form>
