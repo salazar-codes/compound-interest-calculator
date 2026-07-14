@@ -38,8 +38,11 @@ export class InterestFormComponent implements OnInit {
   protected readonly currencySymbol = computed(() => CURRENCY_SYMBOLS[this.store.inputs().currency]);
 
   protected readonly form = this.fb.nonNullable.group({
-    initialAmount: [this.store.inputs().initialAmount, [Validators.required, Validators.min(0)]],
-    contributionAmount: [this.store.inputs().contributionAmount, [Validators.min(0)]],
+    initialAmount: [
+      this.store.inputs().initialAmount,
+      [Validators.required, Validators.min(0), Validators.max(1_000_000_000)],
+    ],
+    contributionAmount: [this.store.inputs().contributionAmount, [Validators.min(0), Validators.max(100_000_000)]],
     contributionFrequency: [this.store.inputs().contributionFrequency],
     annualRate: [this.store.inputs().annualRate, [Validators.required, Validators.min(0), Validators.max(100)]],
     compoundingFrequency: [this.store.inputs().compoundingFrequency],
