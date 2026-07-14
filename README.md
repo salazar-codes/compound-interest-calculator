@@ -14,19 +14,30 @@ que simula la evolución de una inversión con aportes periódicos e interés co
   unit tests puros (ver `compound-interest.service.spec.ts`).
 - **Reactive Forms tipados** para el formulario de configuración, con `valueChanges`
   empujando al store (patrón "smart store / dumb form").
-- **Chart.js** para la gráfica de barras apiladas (capital inicial, aportes e
-  interés como series separadas), usando las APIs modernas de Angular:
-  `viewChild.required`, `effect()` y `afterNextRender()`.
+- **Chart.js con dos modos** (barras apiladas / líneas), con toggle en vivo. El
+  gráfico se reconstruye completo en cada cambio de datos en vez de solo actualizarse,
+  para que la posición del tooltip nunca quede desalineada tras un resize.
+  Usa las APIs modernas de Angular: `viewChild.required`, `effect()` y `afterNextRender()`.
 - **Multi-moneda visual**: un `MoneyPipe` propio (no el `CurrencyPipe` de
   Angular) formatea los montos con el símbolo y separador de miles correcto
-  para USD, EUR, PEN, MXN, COP, CLP, ARS y BRL. No afecta el cálculo, solo la
-  presentación.
-- **Responsive sin perder legibilidad**: por debajo de 640px la tabla deja de
-  ser una tabla y se convierte en una lista de tarjetas (una por fila, con
-  cada valor junto a su etiqueta) en vez de forzar scroll horizontal oculto.
-  La gráfica sí mantiene scroll horizontal (con una pista visual "Desliza
-  para ver todos los años"), porque en un gráfico de barras es preferible
-  ver las barras a tamaño legible que aplastarlas todas en pantalla.
+  para USD (moneda por defecto), EUR, PEN, MXN, COP, CLP, ARS y BRL. No afecta
+  el cálculo, solo la presentación.
+- **Tabla con año 0 y aporte anual real**: la vista "Por año" arranca en una fila
+  "Inicio" (antes de cualquier interés o aporte) y la columna "Aporte" suma todo
+  lo depositado *durante* ese año, no solo el último mes — para que cuadre a
+  simple vista con "Total aportado".
+- **Card de guía dinámica** (`guide-card`): explica cada campo del formulario y,
+  con un ejemplo redactado en vivo a partir de los valores actuales, qué significa
+  cada resultado (saldo final, capital, aportes, interés). Cambia cualquier input
+  y el texto se reescribe solo.
+- **Layout apilado, no de dos columnas**: gráfico y tabla van uno debajo del otro
+  (no lado a lado), tanto en desktop como en mobile — más fácil de leer y evita
+  el clásico bug de flex/grid donde un hijo con contenido ancho (el scroll
+  horizontal del gráfico) se escapa del ancho de su columna.
+- **SEO y metadata básicos**: `favicon.svg` + `favicon.ico` + `apple-touch-icon.png`
+  generados (un icono de moneda con "%"), `site.webmanifest`, meta `description`,
+  `robots`, `canonical`, Open Graph y Twitter Card en `index.html`, y un
+  `robots.txt` / `sitemap.xml` mínimos en `public/`.
 - **Zoneless** (`provideZonelessChangeDetection`) + `ChangeDetectionStrategy.OnPush`
   en todos los componentes.
 
@@ -42,8 +53,15 @@ src/app/
 └── components/
     ├── interest-form/                # Formulario de configuración
     ├── summary-panel/                # Saldo final + donut de composición
-    ├── interest-chart/               # Gráfica de barras (Chart.js), scrollable en mobile
-    └── interest-table/               # Tabla mes a mes / año a año
+    ├── interest-chart/               # Gráfica barras/líneas (Chart.js), scrollable
+    ├── interest-table/               # Tabla mes a mes / año a año, cards en mobile
+    └── guide-card/                   # Guía dinámica: cómo configurar y leer resultados
+
+public/
+├── favicon.svg / favicon.ico / apple-touch-icon.png / icon-192.png / icon-512.png
+├── site.webmanifest
+├── robots.txt
+└── sitemap.xml
 ```
 
 ## Cómo correrlo
@@ -62,6 +80,15 @@ Para correr los tests unitarios del servicio de cálculo:
 ```bash
 npm test
 ```
+
+## Antes de desplegar
+
+Los siguientes archivos tienen `https://interes-compuesto.jimmysalazar.com/` como
+URL de ejemplo — reemplázala por el dominio final una vez decidido:
+
+- `src/index.html` (`canonical`, `og:url`)
+- `public/robots.txt` (línea `Sitemap:`)
+- `public/sitemap.xml` (`<loc>`)
 
 ## Posibles mejoras futuras
 
